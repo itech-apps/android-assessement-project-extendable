@@ -45,3 +45,24 @@
 
 # OkHttp platform used only on JVM and when Conscrypt dependency is available.
 -dontwarn okhttp3.internal.platform.ConscryptPlatform
+
+-dontwarn androidx.databinding.**
+-keep class androidx.databinding.** { *; }
+-keep class * extends androidx.databinding.DataBinderMapper { *; }
+
+
+-keep class kotlinx.coroutines.**
+-dontwarn kotlinx.coroutines.flow.**inlined**
+
+-keepattributes SourceFile,LineNumberTable,*Annotation*,EnclosingMethod,Signature,Exceptions,InnerClasses
+
+
+-keep class com.vp.detail.model.**
+-keepclassmembers class com.vp.detail.model.** {
+      *;
+}
+
+-keep class com.vp.list.model.**
+-keepclassmembers class com.vp.list.model.** {
+      *;
+}
