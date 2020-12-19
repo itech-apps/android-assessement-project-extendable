@@ -31,7 +31,8 @@ android {
 
 dependencies {
     implementation project(':dagger.addons')
-    implementation 'org.jetbrains.kotlin:kotlin-reflect:1.2.60'
+
+    implementation "org.jetbrains.kotlin:kotlin-reflect:$rootProject.kotlin"
     //glide
     implementation "com.github.bumptech.glide:glide:$rootProject.glide"
     kapt "com.github.bumptech.glide:compiler:$rootProject.glide"
@@ -51,6 +52,7 @@ dependencies {
     implementation "androidx.recyclerview:recyclerview:$rootProject.supportLibraryVersion"
     implementation "androidx.constraintlayout:constraintlayout:$rootProject.constraintLayout"
     implementation "com.google.android.material:material:$rootProject.supportLibraryVersion"
+    api "androidx.swiperefreshlayout:swiperefreshlayout:$rootProject.swipeRefreshLayout"
 
     //api
     api "com.squareup.retrofit2:retrofit:$rootProject.retrofit"
