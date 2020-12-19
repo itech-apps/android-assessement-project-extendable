@@ -8,6 +8,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.vp.list.model.ListItem;
 
 import java.util.Collections;
@@ -33,10 +35,10 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ListViewHolder
 
         if (listItem.getPoster() != null && !NO_IMAGE.equals(listItem.getPoster())) {
             final float density = holder.image.getResources().getDisplayMetrics().density;
-            GlideApp
+            Glide
                     .with(holder.image)
                     .load(listItem.getPoster())
-                    .override((int) (300 * density), (int) (600 * density))
+                    .apply(new RequestOptions().override((int) (300 * density), (int) (600 * density)))
                     .into(holder.image);
         } else {
             holder.image.setImageResource(R.drawable.placeholder);

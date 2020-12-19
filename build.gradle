@@ -19,6 +19,7 @@ buildscript {
         glide = '4.8.0'
         okhttp = '3.10.0'
         swipeRefreshLayout = '1.0.0'
+        room_version = '1.1.1'
     }
 
     repositories {

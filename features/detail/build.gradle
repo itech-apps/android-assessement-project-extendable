@@ -36,9 +36,11 @@ android {
 
 dependencies {
     implementation project(':dagger.addons')
+    implementation project(':room.addons')
+
     implementation "androidx.appcompat:appcompat:$rootProject.supportLibraryVersion"
     implementation "androidx.constraintlayout:constraintlayout:$rootProject.constraintLayout"
-    implementation 'org.jetbrains.kotlin:kotlin-reflect:1.2.60'
+    implementation "org.jetbrains.kotlin:kotlin-reflect:$rootProject.kotlin"
 
     //glide
     implementation "com.github.bumptech.glide:glide:$rootProject.glide"
@@ -51,6 +53,11 @@ dependencies {
     //architecture components
     implementation "androidx.lifecycle:lifecycle-extensions:$rootProject.lifecycle"
 
+    //coroutines
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.3.0'
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.0'
+    implementation "androidx.lifecycle:lifecycle-extensions:$rootProject.lifecycle"
+
     //dagger
     implementation "com.google.dagger:dagger:$rootProject.dagger"
     kapt "com.google.dagger:dagger-compiler:$rootProject.dagger"
@@ -61,4 +68,5 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
+    implementation 'com.google.android.material:material:1.2.1'
 }
