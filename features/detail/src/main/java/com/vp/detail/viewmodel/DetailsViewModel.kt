@@ -6,6 +6,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.vp.detail.DetailActivity
+import com.vp.detail.QueryProvider
 import com.vp.detail.model.MovieDetail
 import com.vp.detail.service.DetailService
 import com.vp.roomaddons.dao.MovieDao
@@ -17,6 +18,7 @@ import javax.inject.Inject
 import javax.security.auth.callback.Callback
 
 class DetailsViewModel @Inject constructor(private val detailService: DetailService, private val movieDao: MovieDao) : ViewModel() {
+    private var callbackMovieDetail: Call<MovieDetail>? = null
     private val details: MutableLiveData<MovieDetail> = MutableLiveData()
     private val loadingState: MutableLiveData<LoadingState> = MutableLiveData()
     private var movieDetail : MovieDetail? = null
@@ -26,9 +28,10 @@ class DetailsViewModel @Inject constructor(private val detailService: DetailServ
 
     fun state(): LiveData<LoadingState> = loadingState
 
-    fun fetchDetails() {
+    fun fetchDetails(queryProvider : QueryProvider) {
         loadingState.value = LoadingState.IN_PROGRESS
-        detailService.getMovie(DetailActivity.queryProvider.getMovieId()).enqueue(object : Callback, retrofit2.Callback<MovieDetail> {
+        callbackMovieDetail  = detailService.getMovie(queryProvider.getMovieId())
+        callbackMovieDetail?.enqueue(object : Callback, retrofit2.Callback<MovieDetail> {
             override fun onResponse(call: Call<MovieDetail>?, response: Response<MovieDetail>?) {
 
                 movieDetail = response?.body()
@@ -47,6 +50,7 @@ class DetailsViewModel @Inject constructor(private val detailService: DetailServ
                 loadingState.value = LoadingState.ERROR
             }
         })
+
     }
 
     @SuppressLint("LongLogTag")
@@ -83,5 +87,11 @@ class DetailsViewModel @Inject constructor(private val detailService: DetailServ
 
     enum class LoadingState {
         IN_PROGRESS, LOADED, ERROR
+    }
+
+    override fun onCleared() {
+        super.onCleared()
+
+        callbackMovieDetail?.cancel()
     }
 }

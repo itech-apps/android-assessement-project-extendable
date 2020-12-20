@@ -21,6 +21,8 @@ class DetailActivity : DaggerAppCompatActivity(), QueryProvider {
 
     private var favoriteMovieItem: MenuItem? = null
 
+    lateinit var queryProvider: QueryProvider
+
     @Inject
     lateinit var factory: ViewModelProvider.Factory
 
@@ -33,7 +35,7 @@ class DetailActivity : DaggerAppCompatActivity(), QueryProvider {
         binding.viewModel = detailViewModel
         queryProvider = this
         binding.setLifecycleOwner(this)
-        detailViewModel.fetchDetails()
+        detailViewModel.fetchDetails(queryProvider)
         detailViewModel.movieDetailObserver().observe(this, Observer {
             supportActionBar?.title = it.title
             updateFavoriteMovieIcon()
@@ -83,9 +85,7 @@ class DetailActivity : DaggerAppCompatActivity(), QueryProvider {
         }
     }
 
-    companion object {
-        lateinit var queryProvider: QueryProvider
-    }
+
 
     private fun showMessageFavoriteMovie(message: String) {
         val snackBar: Snackbar = Snackbar
